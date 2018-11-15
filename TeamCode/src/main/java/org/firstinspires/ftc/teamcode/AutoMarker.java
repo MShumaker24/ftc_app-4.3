@@ -147,6 +147,10 @@ public class AutoMarker extends LinearOpMode {
 
         //partial turn left
         runtime.reset();
+        robot.BleftDrive.setPower(.75);
+        robot.BrightDrive.setPower(.75);
+        robot.FleftDrive.setPower(.75);
+        robot.FrightDrive.setPower(.75);
         //robot.Mec(0.75, 0, 0);
         while (opModeIsActive() && runtime.seconds() < 0.5) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
