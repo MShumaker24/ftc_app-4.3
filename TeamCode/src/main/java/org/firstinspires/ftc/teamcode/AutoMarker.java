@@ -59,7 +59,6 @@ public class AutoMarker extends LinearOpMode {
         // -----------------------------------------------------------------------------------------
         //driving with Mec function: x= turn y = forward/backward rotation = strafe
 
-        //moves the robots base down
         waitForStart();
         runtime.reset();
         robot.UpDownML.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -67,18 +66,20 @@ public class AutoMarker extends LinearOpMode {
         robot.UpDownML.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.UpDownMR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.InOutM.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        //moves the robots base down
         robot.UpDownML.setPower(-UPDOWN_SPEED);
         robot.UpDownMR.setPower(UPDOWN_SPEED);
-
         while (opModeIsActive() && (runtime.seconds() < 1.1)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.addData("UpDownML", robot.UpDownML.getCurrentPosition());
             telemetry.addData("UpDownMR", robot.UpDownMR.getCurrentPosition());
             telemetry.update();
         }
+
+        //stops lowering the arm
         robot.UpDownML.setPower(0);
         robot.UpDownMR.setPower(0);
-
 
         // -----------------------------------------------------------------------------------------
 
@@ -100,14 +101,15 @@ public class AutoMarker extends LinearOpMode {
         //slight turn right before strafe away from lander
         runtime.reset();
         //robot.Mec(0.7, 0, 0);
-        robot.BleftDrive.setPower(-.7);
-        robot.BrightDrive.setPower(-.7);
-        robot.FleftDrive.setPower(-.7);
-        robot.FrightDrive.setPower(-.7);
+        robot.BleftDrive.setPower(.5);
+        robot.BrightDrive.setPower(-.5);
+        robot.FleftDrive.setPower(.5);
+        robot.FrightDrive.setPower(-.5);
         while (opModeIsActive() && (runtime.seconds() < 0.3)) {
 
         }
 
+        //stops
         runtime.reset();
         robot.Mec(0, 0, 0);
         while (opModeIsActive() && runtime.seconds() < .25) {
@@ -122,22 +124,25 @@ public class AutoMarker extends LinearOpMode {
             telemetry.update();
         }
 
-         robot.BleftDrive.setPower(0);
-         robot.BrightDrive.setPower(0);
-         robot.FleftDrive.setPower(0);
-         robot.FrightDrive.setPower(0);
+        //stops
+        robot.BleftDrive.setPower(0);
+        robot.BrightDrive.setPower(0);
+        robot.FleftDrive.setPower(0);
+        robot.FrightDrive.setPower(0);
 
          // -----------------------------------------------------------------------------------------
+        //moves forwards
+        runtime.reset();
+        robot.BleftDrive.setPower(.4);
+        robot.BrightDrive.setPower(.6);
+        robot.FleftDrive.setPower(.4);
+        robot.FrightDrive.setPower(.6);
+        while (opModeIsActive() && (runtime.seconds() < 1.8)) {
+            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
+            telemetry.update();
+        }
 
-
-         //moves forwards
-         runtime.reset();
-         robot.Mec(0, 0.5, 0);
-         while (opModeIsActive() && (runtime.seconds() < 1.6)) {
-             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
-             telemetry.update();
-         }
-
+        //stop
         robot.BleftDrive.setPower(0);
         robot.BrightDrive.setPower(0);
         robot.FleftDrive.setPower(0);
@@ -145,16 +150,46 @@ public class AutoMarker extends LinearOpMode {
 
         // ------------------------------------------------------------------------------------------------
 
+        /*
         //partial turn left
         runtime.reset();
+        //robot.Mec(0, 0, 0.75);
         robot.BleftDrive.setPower(.75);
-        robot.BrightDrive.setPower(.75);
-        robot.FleftDrive.setPower(.75);
+        robot.BrightDrive.setPower(-.75);
+        robot.FleftDrive.setPower(-.75);
         robot.FrightDrive.setPower(.75);
-        //robot.Mec(0.75, 0, 0);
-        while (opModeIsActive() && runtime.seconds() < 0.5) {
+        while (opModeIsActive() && runtime.seconds() < 0.75) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
+        }
+        */
+
+        //stops
+        runtime.reset();
+        robot.Mec(0, 0, 0);
+        while (opModeIsActive() && runtime.seconds() < 0.25) {
+
+        }
+
+        //moves marker into depot
+        runtime.reset();
+        robot.MarkerS.setPosition(0.3);
+        while (opModeIsActive() && runtime.seconds() < 1.5) {
+
+        }
+        robot.MarkerS.setPosition(0.7);
+        while (opModeIsActive() && runtime.seconds() < 1.5) {
+
+        }
+
+        //finish the turn
+        runtime.reset();
+        robot.BleftDrive.setPower(.75);
+        robot.BrightDrive.setPower(-.75);
+        robot.FleftDrive.setPower(-.75);
+        robot.FrightDrive.setPower(.75);
+        while (opModeIsActive() && runtime.seconds() < .9) {
+
         }
 
         //stops
@@ -164,25 +199,25 @@ public class AutoMarker extends LinearOpMode {
 
         }
 
-         //moves marker into depot
-         runtime.reset();
-         robot.MarkerS.setPosition(0.3);
-         while (opModeIsActive() && runtime.seconds() < 1.5) {
+        //drive to opposing crater
+        runtime.reset();
+        robot.BleftDrive.setPower(.4);
+        robot.BrightDrive.setPower(.6);
+        robot.FleftDrive.setPower(.4);
+        robot.FrightDrive.setPower(.6);
+        //robot.Mec(0, .5, 0);
+        while (opModeIsActive() && runtime.seconds() < 2.7) {
 
-         }
-         robot.MarkerS.setPosition(0.7);
-            while (opModeIsActive() && runtime.seconds() < 1.5) {
+        }
 
-         }
+        //stops
+        runtime.reset();
+        robot.Mec(0, 0, 0);
 
-         //finish the turn
-
-         //drive to opposing crater
-
-         // -------------------------------------------------------------------------------------------------
-         telemetry.addData("Path", "Complete");
-         telemetry.update();
-         sleep(1000);
+        // -------------------------------------------------------------------------------------------------
+        telemetry.addData("Path", "Complete");
+        telemetry.update();
+        sleep(1000);
 
     }
- }
+}

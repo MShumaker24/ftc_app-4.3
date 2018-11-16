@@ -38,14 +38,14 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 @Autonomous(name="DropOnly", group="Pushbot")
 public class DropOnly extends LinearOpMode {
 
-    GreenRobot9087        robot   = new GreenRobot9087();   // Use a Pushbot's hardware
-    private ElapsedTime     runtime = new ElapsedTime();
+    GreenRobot9087 robot = new GreenRobot9087();   // Use a Pushbot's hardware
+    private ElapsedTime runtime = new ElapsedTime();
 
     //sets how fast our motors are going
-    static final double     FORWARD_SPEED = 0.6;
-    static final double     TURN_SPEED    = 1;
-    static final double     UPDOWN_SPEED    = 1;
-    static final double     INOUT_SPEED    = 1;
+    static final double FORWARD_SPEED = 0.6;
+    static final double TURN_SPEED = 1;
+    static final double UPDOWN_SPEED = 1;
+    static final double INOUT_SPEED = 1;
 
 
     @Override
@@ -59,7 +59,6 @@ public class DropOnly extends LinearOpMode {
         // -----------------------------------------------------------------------------------------
         //driving with Mec function: x= turn y = forward/backward rotation = strafe
 
-        //moves the robots base down
         waitForStart();
         runtime.reset();
         robot.UpDownML.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -67,6 +66,8 @@ public class DropOnly extends LinearOpMode {
         robot.UpDownML.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.UpDownMR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.InOutM.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        //moves the robots base down
         robot.UpDownML.setPower(-UPDOWN_SPEED);
         robot.UpDownMR.setPower(UPDOWN_SPEED);
 
@@ -100,14 +101,15 @@ public class DropOnly extends LinearOpMode {
         //slight turn right before strafe away from lander
         runtime.reset();
         //robot.Mec(0.7, 0, 0);
-        robot.BleftDrive.setPower(-.7);
-        robot.BrightDrive.setPower(-.7);
-        robot.FleftDrive.setPower(-.7);
-        robot.FrightDrive.setPower(-.7);
-        while (opModeIsActive() && (runtime.seconds() < 0.4)) {
+        robot.BleftDrive.setPower(.5);
+        robot.BrightDrive.setPower(-.5);
+        robot.FleftDrive.setPower(.5);
+        robot.FrightDrive.setPower(-.5);
+        while (opModeIsActive() && (runtime.seconds() < 0.3)) {
 
         }
 
+        //stops
         runtime.reset();
         robot.Mec(0, 0, 0);
         while (opModeIsActive() && runtime.seconds() < .25) {
@@ -122,16 +124,10 @@ public class DropOnly extends LinearOpMode {
             telemetry.update();
         }
 
+        //stops
         robot.BleftDrive.setPower(0);
         robot.BrightDrive.setPower(0);
         robot.FleftDrive.setPower(0);
         robot.FrightDrive.setPower(0);
-
-        // -------------------------------------------------------------------------------------------------
-
-        telemetry.addData("Path", "Complete");
-        telemetry.update();
-        sleep(1000);
-
     }
 }
