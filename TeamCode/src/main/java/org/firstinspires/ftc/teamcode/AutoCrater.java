@@ -89,7 +89,7 @@ public class AutoCrater extends LinearOpMode {
 
         robot.InOutM.setPower(INOUT_SPEED);
 
-        while (opModeIsActive() && (robot.InOutM.getCurrentPosition() < 1600)) {
+        while (opModeIsActive() && (robot.InOutM.getCurrentPosition() < 1500)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.addData("InOutM", robot.InOutM.getCurrentPosition());
             telemetry.update();
@@ -97,17 +97,6 @@ public class AutoCrater extends LinearOpMode {
         robot.InOutM.setPower(0);
 
         // -----------------------------------------------------------------------------------------
-
-        //slight turn right before strafe away from lander
-        runtime.reset();
-        //robot.Mec(0.7, 0, 0);
-        robot.BleftDrive.setPower(.5);
-        robot.BrightDrive.setPower(-.5);
-        robot.FleftDrive.setPower(.5);
-        robot.FrightDrive.setPower(-.5);
-        while (opModeIsActive() && (runtime.seconds() < 0.3)) {
-
-        }
 
         //stops
         runtime.reset();
@@ -119,7 +108,7 @@ public class AutoCrater extends LinearOpMode {
         //moves left
         runtime.reset();
         robot.Mec(0, 0, -0.5);
-        while (opModeIsActive() && (runtime.seconds() < .9)) {
+        while (opModeIsActive() && (runtime.seconds() < .8)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }

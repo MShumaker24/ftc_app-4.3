@@ -35,17 +35,17 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 
-@Autonomous(name="DropOnly", group="Pushbot")
-public class DropOnly extends LinearOpMode {
+@Autonomous(name="AutoMarkerTest", group="Pushbot")
+public class AutoMarkerTest extends LinearOpMode {
 
-    GreenRobot9087 robot = new GreenRobot9087();   // Use a Pushbot's hardware
-    private ElapsedTime runtime = new ElapsedTime();
+    GreenRobot9087        robot   = new GreenRobot9087();   // Use a Pushbot's hardware
+    private ElapsedTime     runtime = new ElapsedTime();
 
     //sets how fast our motors are going
-    static final double FORWARD_SPEED = 0.6;
-    static final double TURN_SPEED = 1;
-    static final double UPDOWN_SPEED = 1;
-    static final double INOUT_SPEED = 1;
+    static final double     FORWARD_SPEED = 0.6;
+    static final double     TURN_SPEED    = 1;
+    static final double     UPDOWN_SPEED    = 1;
+    static final double     INOUT_SPEED    = 1;
 
 
     @Override
@@ -57,7 +57,6 @@ public class DropOnly extends LinearOpMode {
         telemetry.update();
 
         // -----------------------------------------------------------------------------------------
-        //driving with Mec function: x= turn y = forward/backward rotation = strafe
 
         waitForStart();
         runtime.reset();
@@ -70,16 +69,16 @@ public class DropOnly extends LinearOpMode {
         //moves the robots base down
         robot.UpDownML.setPower(-UPDOWN_SPEED);
         robot.UpDownMR.setPower(UPDOWN_SPEED);
-
         while (opModeIsActive() && (runtime.seconds() < 1.1)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.addData("UpDownML", robot.UpDownML.getCurrentPosition());
             telemetry.addData("UpDownMR", robot.UpDownMR.getCurrentPosition());
             telemetry.update();
         }
+
+        //stops lowering the arm
         robot.UpDownML.setPower(0);
         robot.UpDownMR.setPower(0);
-
 
         // -----------------------------------------------------------------------------------------
 
@@ -89,7 +88,7 @@ public class DropOnly extends LinearOpMode {
 
         robot.InOutM.setPower(INOUT_SPEED);
 
-        while (opModeIsActive() && (robot.InOutM.getCurrentPosition() < 12500)) {
+        while (opModeIsActive() && (robot.InOutM.getCurrentPosition() < 5100)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.addData("InOutM", robot.InOutM.getCurrentPosition());
             telemetry.update();
@@ -98,20 +97,104 @@ public class DropOnly extends LinearOpMode {
 
         // -----------------------------------------------------------------------------------------
 
-        /*
-        //moves left
+        //strafe away from lander
         runtime.reset();
-        robot.Mec(0, 0, -0.5);
-        while (opModeIsActive() && (runtime.seconds() < 1.0)) {
+        robot.BleftDrive.setPower(0);
+        robot.BrightDrive.setPower(0);
+        robot.FleftDrive.setPower(0);
+        robot.FrightDrive.setPower(0);
+        while (opModeIsActive() && runtime.seconds() < 1)
+        {
+
+        }
+
+        //moves forwards
+        runtime.reset();
+        robot.BleftDrive.setPower(.4);
+        robot.BrightDrive.setPower(.6);
+        robot.FleftDrive.setPower(.4);
+        robot.FrightDrive.setPower(.6);
+        while (opModeIsActive() && (runtime.seconds() < 1.8)) {
+            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
+            telemetry.update();
+        }
+
+        //stop
+        robot.BleftDrive.setPower(0);
+        robot.BrightDrive.setPower(0);
+        robot.FleftDrive.setPower(0);
+        robot.FrightDrive.setPower(0);
+
+        // ------------------------------------------------------------------------------------------------
+
+        /*
+        //partial turn left
+        runtime.reset();
+        //robot.Mec(0, 0, 0.75);
+        robot.BleftDrive.setPower(.75);
+        robot.BrightDrive.setPower(-.75);
+        robot.FleftDrive.setPower(-.75);
+        robot.FrightDrive.setPower(.75);
+        while (opModeIsActive() && runtime.seconds() < 0.75) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
         */
 
         //stops
-        robot.BleftDrive.setPower(0);
-        robot.BrightDrive.setPower(0);
-        robot.FleftDrive.setPower(0);
-        robot.FrightDrive.setPower(0);
+        runtime.reset();
+        robot.Mec(0, 0, 0);
+        while (opModeIsActive() && runtime.seconds() < 0.25) {
+
+        }
+
+        //moves marker into depot
+        runtime.reset();
+        robot.MarkerS.setPosition(0.3);
+        while (opModeIsActive() && runtime.seconds() < 1.5) {
+
+        }
+        robot.MarkerS.setPosition(0.7);
+        while (opModeIsActive() && runtime.seconds() < 1.5) {
+
+        }
+
+        //finish the turn
+        runtime.reset();
+        robot.BleftDrive.setPower(.75);
+        robot.BrightDrive.setPower(-.75);
+        robot.FleftDrive.setPower(-.75);
+        robot.FrightDrive.setPower(.75);
+        while (opModeIsActive() && runtime.seconds() < .9) {
+
+        }
+
+        //stops
+        runtime.reset();
+        robot.Mec(0, 0, 0);
+        while (opModeIsActive() && runtime.seconds() < 0.25) {
+
+        }
+
+        //drive to opposing crater
+        runtime.reset();
+        robot.BleftDrive.setPower(.4);
+        robot.BrightDrive.setPower(.6);
+        robot.FleftDrive.setPower(.4);
+        robot.FrightDrive.setPower(.6);
+        //robot.Mec(0, .5, 0);
+        while (opModeIsActive() && runtime.seconds() < 2.7) {
+
+        }
+
+        //stops
+        runtime.reset();
+        robot.Mec(0, 0, 0);
+
+        // -------------------------------------------------------------------------------------------------
+        telemetry.addData("Path", "Complete");
+        telemetry.update();
+        sleep(1000);
+
     }
 }

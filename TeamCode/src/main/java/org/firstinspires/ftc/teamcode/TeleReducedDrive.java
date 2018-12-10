@@ -7,8 +7,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
-@TeleOp(name="Basic: Iterative OpMode Green", group="Iterative Opmode")
-public class BasicOpMode_Iterative_green extends OpMode
+@TeleOp(name="TeleReducedDrive", group="Iterative Opmode")
+public class TeleReducedDrive extends OpMode
 {
     // these are our motors
     private ElapsedTime runtime = new ElapsedTime();
@@ -87,10 +87,10 @@ public class BasicOpMode_Iterative_green extends OpMode
         boolean markerU = gamepad2.dpad_left;
         boolean markerD = gamepad2.dpad_right;
         //math to set values between 1 and -1
-        BleftPower    = Range.clip(drive + strafe + turn, -1.0, 1.0) ;
-        BrightPower   = Range.clip(drive - strafe - turn, -1.0, 1.0) ;
-        FleftPower    = Range.clip(drive - strafe + turn, -1.0, 1.0) ;
-        FrightPower   = Range.clip(drive + strafe - turn, -1.0, 1.0) ;
+        BleftPower    = Range.clip(drive + strafe + turn, -0.75, 0.75) ;
+        BrightPower   = Range.clip(drive - strafe - turn, -0.75, 0.75) ;
+        FleftPower    = Range.clip(drive - strafe + turn, -0.75, 0.75) ;
+        FrightPower   = Range.clip(drive + strafe - turn, -0.75, 0.75) ;
         BrushPower = Range.clip(brushF + brushB, -1.0, 1.0);
         DownUpPower = lift * 0.5;
         InOutPower = out * 1;

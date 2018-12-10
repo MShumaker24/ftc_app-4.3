@@ -16,6 +16,7 @@ public class GreenRobot9087
     public DcMotor UpDownMR= null;
     public DcMotor InOutM = null;
     public Servo MarkerS = null;
+    public Servo cageServo = null;
 
     public static final double MID_SERVO       =  0.5 ;
     public static final double ARM_UP_POWER    =  0.45 ;

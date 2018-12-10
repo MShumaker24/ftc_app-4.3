@@ -89,7 +89,7 @@ public class AutoMarker extends LinearOpMode {
 
         robot.InOutM.setPower(INOUT_SPEED);
 
-        while (opModeIsActive() && (robot.InOutM.getCurrentPosition() < 1625)) {
+        while (opModeIsActive() && (robot.InOutM.getCurrentPosition() < 11000)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.addData("InOutM", robot.InOutM.getCurrentPosition());
             telemetry.update();
@@ -98,27 +98,9 @@ public class AutoMarker extends LinearOpMode {
 
         // -----------------------------------------------------------------------------------------
 
-        //slight turn right before strafe away from lander
-        runtime.reset();
-        //robot.Mec(0.7, 0, 0);
-        robot.BleftDrive.setPower(.5);
-        robot.BrightDrive.setPower(-.5);
-        robot.FleftDrive.setPower(.5);
-        robot.FrightDrive.setPower(-.5);
-        while (opModeIsActive() && (runtime.seconds() < 0.3)) {
-
-        }
-
-        //stops
-        runtime.reset();
-        robot.Mec(0, 0, 0);
-        while (opModeIsActive() && runtime.seconds() < .25) {
-
-        }
-
         //moves left
         runtime.reset();
-        robot.Mec(0, 0, -0.5);
+        robot.Mec(0, 0, 0.65);
         while (opModeIsActive() && (runtime.seconds() < 1.0)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
