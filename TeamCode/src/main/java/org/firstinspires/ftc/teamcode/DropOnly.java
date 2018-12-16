@@ -89,7 +89,7 @@ public class DropOnly extends LinearOpMode {
 
         robot.InOutM.setPower(INOUT_SPEED);
 
-        while (opModeIsActive() && (robot.InOutM.getCurrentPosition() < 12500)) {
+        while (opModeIsActive() && (robot.InOutM.getCurrentPosition() < 9500)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.addData("InOutM", robot.InOutM.getCurrentPosition());
             telemetry.update();

@@ -89,7 +89,7 @@ public class AutoMarker extends LinearOpMode {
 
         robot.InOutM.setPower(INOUT_SPEED);
 
-        while (opModeIsActive() && (robot.InOutM.getCurrentPosition() < 11000)) {
+        while (opModeIsActive() && (robot.InOutM.getCurrentPosition() < 8000)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.addData("InOutM", robot.InOutM.getCurrentPosition());
             telemetry.update();
@@ -100,7 +100,7 @@ public class AutoMarker extends LinearOpMode {
 
         //moves left
         runtime.reset();
-        robot.Mec(0, 0, 0.65);
+        robot.Mec(0, 0, 0.5);
         while (opModeIsActive() && (runtime.seconds() < 1.0)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
@@ -146,6 +146,15 @@ public class AutoMarker extends LinearOpMode {
         }
         */
 
+        runtime.reset();
+        robot.BleftDrive.setPower(.75);
+        robot.BrightDrive.setPower(.75);
+        robot.FleftDrive.setPower(.75);
+        robot.FrightDrive.setPower(.75);
+        while (opModeIsActive() && runtime.seconds() < 0.5){
+
+        }
+
         //stops
         runtime.reset();
         robot.Mec(0, 0, 0);
@@ -170,7 +179,7 @@ public class AutoMarker extends LinearOpMode {
         robot.BrightDrive.setPower(-.75);
         robot.FleftDrive.setPower(-.75);
         robot.FrightDrive.setPower(.75);
-        while (opModeIsActive() && runtime.seconds() < .9) {
+        while (opModeIsActive() && runtime.seconds() < .7) {
 
         }
 
@@ -196,6 +205,12 @@ public class AutoMarker extends LinearOpMode {
         runtime.reset();
         robot.Mec(0, 0, 0);
 
+        //lowers the arm
+        robot.UpDownML.setPower(0.5);
+        robot.UpDownMR.setPower(-0.5);
+        while (opModeIsActive() && runtime.seconds() < 1) {
+
+        }
         // -------------------------------------------------------------------------------------------------
         telemetry.addData("Path", "Complete");
         telemetry.update();
